@@ -11,4 +11,4 @@ pyflakes==1.5.0
 singledispatch==3.4.0.3
 six==1.10.0
 tornado==3.2
-tornado-swagger==1.0
+git+https://github.com/SerenaFeng/tornado-swagger#egg=swagger
