@@ -22,6 +22,15 @@ class CarceralHandler(RequestHandler):
         """
 
         query = self.get_argument('q', None)
+        if query is None:
+            self.set_status(400)
+            self.finish({
+                "reason": 'you didnt supply q. q is required'
+                ' for processing this request.'
+                ' if you feel you have received this message in error'
+                ' call 917-945-3487'
+            })
+            return
         num_suggestions = int(self.get_argument('n', 3))
         num_words_per_suggestion = int(self.get_argument('num-words', 1))
         suggestions = {
