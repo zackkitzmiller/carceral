@@ -17,14 +17,8 @@ def slugify(text, separator="-"):
     return ret.strip()
 
 
-def get_service_name():
-    return random.choice(WORDS).lower()
-
-
-def build_word(word):
-    return {
-        'name': word,
-        'meta': {
-            'definition': 'https://www.merriam-webster.com/dictionary/{0}'.format(word)
-        }
-    }
+def get_service_name(num_words=1):
+    words = []
+    for i in xrange(0, num_words):
+        words.append(random.choice(WORDS).lower())
+    return "-".join(words)
