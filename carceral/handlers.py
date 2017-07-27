@@ -1,13 +1,26 @@
 import json
 
 from tornado.web import RequestHandler
+from tornado_swagger import swagger
 
 from carceral import words
 
 
 class CarceralHandler(RequestHandler):
 
+    @swagger.operation(nickname='generate')
     def get(self):
+        """
+            @param q: the query to generate a service name for
+            @param num-words: number of words in the service name
+            @param n: number of suggestions to return
+            @type q: string
+            @type num-words: int
+            @type n: int
+            @return 200: list or results
+            @raise 400: invalid input
+        """
+
         query = self.get_argument('q', None)
         num_suggestions = int(self.get_argument('n', 3))
         num_words_per_suggestion = int(self.get_argument('num-words', 1))
@@ -32,4 +45,3 @@ class CarceralHandler(RequestHandler):
 
         self.set_header("Content-Type", "application/json")
         self.finish(json.dumps(resp))
-
