@@ -34,7 +34,8 @@ class CarceralHandler(RequestHandler):
             )
 
         if query is not None:
-            suggestions['not_recommended'] = []
+            suggestions['not_recommended'] = ['jquery']
+            suggestions['not_recommended']
             suggestions['not_recommended'].append(
                 words.slugify(query)
             )
