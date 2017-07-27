@@ -1,1 +1,1 @@
-web: python carceral/app.py
+web: python carceral/server.py
