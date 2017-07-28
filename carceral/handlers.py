@@ -72,9 +72,9 @@ class CarceralHandler(RequestHandler):
                     dictionary, num_words=num_words_per_suggestion
                 )
             )
-            suggestions['recommended'] = filter(
+            suggestions['recommended'] = list(set(filter(
                 lambda x: x != "", suggestions['recommended']
-            )
+            )))
 
         if query is not None:
             suggestions['not_recommended'] = ['jquery']

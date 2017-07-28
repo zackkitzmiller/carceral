@@ -16,10 +16,12 @@ def get_client():
 
 
 def get_wolfram_dictionary_multi_word(input):
-    words = input.split()
     dictionary = []
-    for word in words:
-        dictionary += get_wolfram_dictionary(word)
+    dictionary = get_wolfram_dictionary(input)
+    if len(dictionary) == 0:
+        words = input.split()
+        for word in words:
+            dictionary += get_wolfram_dictionary(word)
     return dictionary
 
 
@@ -34,7 +36,8 @@ def get_wolfram_dictionary(input):
                     _raw = s.plaintext.split('|')
                     words = [slugify(cleanse(s.strip())) for s in _raw]
                     logger.info(words)
-    except:
+    except Exception, e:
+        logger.info(e)
         logger.info('could not get wolfram result for {0}'.format(input))
 
     return words
