@@ -20,7 +20,7 @@ def run_server():
     enable_pretty_logging()
 
     application = swagger.Application([
-        (r"/", CarceralHandler),
+        (r"/", CarceralHandler)
     ], debug=os.environ.get('DEBUG', False))
 
     http_server = tornado.httpserver.HTTPServer(application)

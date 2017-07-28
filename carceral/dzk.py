@@ -20,7 +20,7 @@ def get_twitter_dictionary(username):
 
 
 def get_dzk_dictionary():
-    get_twitter_dictionary(DRUNKZACKKITZ_TWITTER_HANDLE)
+    return get_twitter_dictionary(DRUNKZACKKITZ_TWITTER_HANDLE)
 
 
 def get_api():
