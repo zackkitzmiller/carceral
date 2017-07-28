@@ -31,6 +31,7 @@ class CarceralHandler(RequestHandler):
                 ' call 917-945-3487'
             })
             return
+
         num_suggestions = int(self.get_argument('n', 3))
         num_words_per_suggestion = int(self.get_argument('num-words', 1))
         suggestions = {
