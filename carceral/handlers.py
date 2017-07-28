@@ -4,14 +4,15 @@ from tornado.web import RequestHandler
 from tornado_swagger import swagger
 
 from carceral import words
-from carceral.dzk import get_dzk_dictionary
+from carceral.dzk import get_dzk_dictionary, get_twitter_dictionary
 from carceral.slugify import slugify
 from carceral.wolf import get_wolfram_dictionary_multi_word
 
 STD_MODE = "standard"
 DZK_MODE = "drunkzackkitz"
 WOLF_MODE = "wolframalpha"
-VALID_MODES = [STD_MODE, DZK_MODE, WOLF_MODE]
+TWITTER_MODE = "twitter"
+VALID_MODES = [STD_MODE, DZK_MODE, WOLF_MODE, TWITTER_MODE]
 
 
 class CarceralHandler(RequestHandler):
@@ -36,7 +37,18 @@ class CarceralHandler(RequestHandler):
             self.finish({
                 "reason": 'invalid mode selected'
                 ' mode must be one of drunkzackkitz, wolframalpha'
-                ' or standard (default)'
+                ' twitter or standard (default)'
+                ' if you feel you have received this message in error'
+                ' call 917-945-3487'
+            })
+            return
+
+        twitter_user = self.get_argument('twitter-user', None)
+        if mode == TWITTER_MODE and not twitter_user:
+            self.set_status(400)
+            self.finish({
+                "reason": 'invalid mode option'
+                ' with twitter mode twitter-user must be supplied'
                 ' if you feel you have received this message in error'
                 ' call 917-945-3487'
             })
@@ -63,6 +75,8 @@ class CarceralHandler(RequestHandler):
             dictionary = words.get_standard_dictionary()
         elif mode == DZK_MODE:
             dictionary = get_dzk_dictionary()
+        elif mode == TWITTER_MODE:
+            dictionary = get_twitter_dictionary(twitter_user)
         elif mode == WOLF_MODE:
             dictionary = get_wolfram_dictionary_multi_word(query)
 

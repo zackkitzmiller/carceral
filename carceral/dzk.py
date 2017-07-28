@@ -6,9 +6,9 @@ import twitter
 DRUNKZACKKITZ_TWITTER_HANDLE = "drunkzackkitz"
 
 
-def get_dzk_dictionary():
+def get_twitter_dictionary(username):
     api = get_api()
-    statuses = api.GetUserTimeline(screen_name="drunkzackkitz", count=200)
+    statuses = api.GetUserTimeline(screen_name=username, count=200)
 
     dictionary = []
     for s in statuses:
@@ -17,6 +17,10 @@ def get_dzk_dictionary():
         s.text = re.sub('[^a-zA-Z\s]', "", s.text)
         dictionary += s.text.lower().split()
     return dictionary
+
+
+def get_dzk_dictionary():
+    get_twitter_dictionary(DRUNKZACKKITZ_TWITTER_HANDLE)
 
 
 def get_api():
