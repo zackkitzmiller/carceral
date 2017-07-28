@@ -21,7 +21,7 @@ def run_server():
 
     application = swagger.Application([
         (r"/", CarceralHandler),
-    ], debug=True)
+    ], debug=os.environ.get('DEBUG', False))
 
     http_server = tornado.httpserver.HTTPServer(application)
     port = int(os.environ.get("PORT", 5000))
