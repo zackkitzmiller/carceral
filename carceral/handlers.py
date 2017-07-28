@@ -5,10 +5,13 @@ from tornado_swagger import swagger
 
 from carceral import words
 from carceral.dzk import get_dzk_dictionary
+from carceral.slugify import slugify
+from carceral.wolf import get_wolfram_dictionary_multi_word
 
 STD_MODE = "standard"
 DZK_MODE = "drunkzackkitz"
-VALID_MODES = [STD_MODE, DZK_MODE]
+WOLF_MODE = "wolframalpha"
+VALID_MODES = [STD_MODE, DZK_MODE, WOLF_MODE]
 
 
 class CarceralHandler(RequestHandler):
@@ -32,7 +35,7 @@ class CarceralHandler(RequestHandler):
             self.set_status(400)
             self.finish({
                 "reason": 'invalid mode selected'
-                ' mode must be one of drunkzackkitz'
+                ' mode must be one of drunkzackkitz, wolframalpha'
                 ' or standard (default)'
                 ' if you feel you have received this message in error'
                 ' call 917-945-3487'
@@ -56,10 +59,12 @@ class CarceralHandler(RequestHandler):
             'recommended': []
         }
 
-        if mode == "standard":
+        if mode == STD_MODE:
             dictionary = words.get_standard_dictionary()
-        elif mode == "drunkzackkitz":
+        elif mode == DZK_MODE:
             dictionary = get_dzk_dictionary()
+        elif mode == WOLF_MODE:
+            dictionary = get_wolfram_dictionary_multi_word(query)
 
         for n in xrange(0, num_suggestions):
             suggestions['recommended'].append(
@@ -67,12 +72,15 @@ class CarceralHandler(RequestHandler):
                     dictionary, num_words=num_words_per_suggestion
                 )
             )
+            suggestions['recommended'] = filter(
+                lambda x: x != "", suggestions['recommended']
+            )
 
         if query is not None:
             suggestions['not_recommended'] = ['jquery']
             suggestions['not_recommended']
             suggestions['not_recommended'].append(
-                words.slugify(query)
+                slugify(query)
             )
 
         resp = {
