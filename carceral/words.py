@@ -17,8 +17,12 @@ def slugify(text, separator="-"):
     return ret.strip()
 
 
-def get_service_name(num_words=1):
+def get_words_from_dictionary(dictionary, num_words=1):
     words = []
     for i in xrange(0, num_words):
-        words.append(random.choice(WORDS).lower())
+        words.append(random.choice(dictionary).lower())
     return "-".join(words)
+
+
+def get_standard_dictionary():
+    return WORDS
