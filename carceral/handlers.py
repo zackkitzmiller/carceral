@@ -38,8 +38,6 @@ class CarceralHandler(RequestHandler):
                 "reason": 'invalid mode selected'
                 ' mode must be one of drunkzackkitz, wolframalpha'
                 ' twitter or standard (default)'
-                ' if you feel you have received this message in error'
-                ' call 917-945-3487'
             })
             return
 
@@ -49,8 +47,6 @@ class CarceralHandler(RequestHandler):
             self.finish({
                 "reason": 'invalid mode option'
                 ' with twitter mode twitter-user must be supplied'
-                ' if you feel you have received this message in error'
-                ' call 917-945-3487'
             })
             return
 
@@ -60,8 +56,6 @@ class CarceralHandler(RequestHandler):
             self.finish({
                 "reason": 'you didnt supply q. q is required'
                 ' for processing this request.'
-                ' if you feel you have received this message in error'
-                ' call 917-945-3487'
             })
             return
 
