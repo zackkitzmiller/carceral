@@ -22,6 +22,6 @@ singledispatch==3.4.0.3
 six==1.10.0
 tornado==3.2
 tornado-swagger==1.0
-urllib3==1.24.2
+urllib3==1.26.5
 wolframalpha==3.0
 xmltodict==0.11.0
