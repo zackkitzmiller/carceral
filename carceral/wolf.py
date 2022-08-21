@@ -36,7 +36,7 @@ def get_wolfram_dictionary(input):
                     _raw = s.plaintext.split('|')
                     words = [slugify(cleanse(s.strip())) for s in _raw]
                     logger.info(words)
-    except Exception, e:
+    except Exception as e:
         logger.info(e)
         logger.info('could not get wolfram result for {0}'.format(input))
 
